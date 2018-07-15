@@ -1,0 +1,1 @@
+select * from studentpersonal s,mca m where s.rollno in (select rollno from mca where ha=0) and s.rollno in (select id from login where department='computer application')

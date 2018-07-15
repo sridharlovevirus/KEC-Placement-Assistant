@@ -1,0 +1,21 @@
+<html>
+<head>
+<script>
+
+    var childWindow = "new.html";
+    var newTabUrl="new.php";
+
+    function openNewTab(){
+        childWindow = window.open(newTabUrl);
+    }
+
+    function refreshExistingTab(){
+        childWindow.location.href=newTabUrl;
+    }
+
+</script>
+</head>
+<body>
+<button onClick="openNewTab()">submit</button>
+</body>
+</html>

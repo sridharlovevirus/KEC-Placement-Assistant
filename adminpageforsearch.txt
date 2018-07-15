@@ -1,0 +1,417 @@
+if(($_SESSION['dep']=='office'))
+{
+	$be="";
+	$w=" where 1";
+	$mca="";
+	$mca1=0;
+	$mba="";
+	$mba1=0;
+	$msc="";
+	$msc1="";
+	$bsc="";
+	$bsc1=0;
+	$be1=0;
+	$b1=0;
+	$q="select * from login l,studentpersonal s";
+	$dep=$_POST['dept1'];
+	foreach($dep as $s)
+	{
+		if($s=="computer application")
+		{
+			$q=$q.",mca m";
+			$mca=" and m.rollno=s.rollno and m.rollno=l.id";
+			$mca1=1;
+		}
+		else if($s=="bsc")
+		{
+			$q=$q.",bsc b";
+			$bsc=" and b.rollno=s.rollno and b.rollno=l.id";
+			$bsc1=1;
+		}
+		else if($s=="msc")
+		{
+			$q=$q.",msc ms";
+			$msc=" and ms.rollno=s.rollno and ms.rollno=l.id";
+			$msc1=1;
+		}
+		else if($s=="mba")
+		{
+			$q=$q.",mba mb";
+			$mba=" and mb.rollno=s.rollno and mb.rollno=l.id";
+			$mba1=1;
+		}
+		else
+		{
+			if($count==0)
+			{
+			$q=$q.",be be";
+				$be=" and be.rollno=s.rollno and be.rollno=l.id";
+				$count=2;
+				$be1=1;
+			}
+		}
+	}
+}
+else if(($count1==1)&&($_SESSION['dep']!='office'))
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	if(($msc1==1)||($bsc1==1)||($mba1==1)||($mca1==1)||($be1==1))
+{
+	$se=0;
+	$st="and s.rollno in (select id from login where 1 and ";
+	$end="";
+		//$qe="";
+		foreach($dep as $data)
+		{
+	//$q=$q." department='$dep')";
+	if($data=='computer application')
+	{
+		$end=$end." department='".$data."'";
+		$se=1;
+	}
+	if($data=='mba')
+	{
+		if($se==1)
+		{
+			$end=$end." or department='".$data."'";
+		}
+		if($se==0)
+		{
+			$end=$end."  department='".$data."'";
+			$se=1;
+		}
+	}
+	if($data=='msc')
+	{
+		if($se==1)
+		{
+			$end=$end." or department='".$data."'";
+		}
+		if($se==0)
+		{
+		$end=$end." department='".$data."'";
+$se=1;		
+		}
+	}
+	if($data=='bsc')
+	{
+		if($se==1)
+		{
+			$end=$end." or department='".$data."'";
+	}
+	if($se==0)
+	{
+		$end=$end." department='".$data."'";
+		$se=1;
+	}
+	}
+	if(($data!='bsc')&&($data!='msc')&&($data!='mba')&&($data!='computer application'))
+	{
+		if($se==1)
+		{
+			$end=$end." or department='".$data."'";
+		}
+		if($se==0)
+		{
+			$end=$end." or department='".$data."'";
+			$se=1;
+		}
+	}
+		}
+		$q=$q.$st.$end;
+		echo $q.")";
+		
+	mysql_connect('localhost','root','');
+mysql_select_db('kongu');
+	$q1=mysql_query($q);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(($msc1==1)||($bsc1==1)||($mba1==1)||($mca1==1)||($be1==1))
+{
+$q=$q.$w;
+}
+if($msc!="");
+{
+	$q=$q.$msc;
+}
+if($bsc!="");
+{
+	$q=$q.$bsc;
+}
+if($mca!="");
+{
+	$q=$q.$mca;
+}
+if($mba!="");
+{
+	$q=$q.$mba;
+}
+
+if($be!="");
+{
+	$q=$q.$be;
+}
+if(isset($_POST['sslcper']))
+	{
+				$sslcper=$_POST['sslcper'];
+		if($sslcper!='')
+		{
+
+		$q=$q." and sslcper>='$sslcper' ";
+		}
+	}
+	if(isset($_POST['hscper']))
+	{
+				$hscper=$_POST['hscper'];
+		if($hscper!='')
+		{
+
+			$q=$q." and hscper>='$hscper' ";
+		}
+	}
+	if($mca1==1)
+	{
+	if(isset($_POST['ugper']))
+	{
+			$ugper=$_POST['ugper'];
+		if($ugper!='')
+		{
+	
+		$q=$q." and m.ugper>='$ugper' ";
+		}
+	}
+	if(isset($_POST['cper']))
+	{
+		$cper=$_POST['cper'];
+		if($cper!='')
+		{
+		
+			$q=$q." and m.cp>='$cper' ";
+	}
+	}
+	if(isset($_POST['sa']))
+	{
+		$sa=$_POST['sa'];
+		if($sa!='')
+		{
+		
+		$q=$q." and m.sa<='$sa' ";
+	}
+	}
+	if(isset($_POST['year']))
+	{
+				$year=$_POST['year'];
+		if($year!='')
+		{
+
+			$q=$q." and m.ce='$year' ";
+	}
+	}
+	}
+	
+	
+	
+	
+	
+	
+	if($mba1==1)
+	{
+	if(isset($_POST['ugper']))
+	{
+			$ugper=$_POST['ugper'];
+		if($ugper!='')
+		{
+	
+		$q=$q." and mb.ugper>='$ugper' ";
+		}
+	}
+	if(isset($_POST['cper']))
+	{
+		$cper=$_POST['cper'];
+		if($cper!='')
+		{
+		
+			$q=$q." and mb.cp>='$cper' ";
+	}
+	}
+	if(isset($_POST['sa']))
+	{
+		$sa=$_POST['sa'];
+		if($sa!='')
+		{
+		
+		$q=$q." and mb.sa<='$sa' ";
+	}
+	}
+	if(isset($_POST['year']))
+	{
+				$year=$_POST['year'];
+		if($year!='')
+		{
+
+			$q=$q." and mb.ce='$year' ";
+	}
+	}
+	}
+	
+	
+	if($msc1==1)
+	{
+	if(isset($_POST['ugper']))
+	{
+			$ugper=$_POST['ugper'];
+		if($ugper!='')
+		{
+	
+		$q=$q." and ms.ugper>='$ugper' ";
+		}
+	}
+	if(isset($_POST['cper']))
+	{
+		$cper=$_POST['cper'];
+		if($cper!='')
+		{
+		
+			$q=$q." and ms.cp>='$cper' ";
+	}
+	}
+	if(isset($_POST['sa']))
+	{
+		$sa=$_POST['sa'];
+		if($sa!='')
+		{
+		
+		$q=$q." and ms.sa<='$sa' ";
+	}
+	}
+	if(isset($_POST['year']))
+	{
+				$year=$_POST['year'];
+		if($year!='')
+		{
+
+			$q=$q." and ms.ce='$year' ";
+	}
+	}
+	}
+	
+	
+	
+	if($bsc1==1)
+	{
+	if(isset($_POST['ugper']))
+	{
+			$ugper=$_POST['ugper'];
+		if($ugper!='')
+		{
+	
+		$q=$q." and b.ugper>='$ugper' ";
+		}
+	}
+	if(isset($_POST['cper']))
+	{
+		$cper=$_POST['cper'];
+		if($cper!='')
+		{
+		
+			$q=$q." and b.cp>='$cper' ";
+	}
+	}
+	if(isset($_POST['sa']))
+	{
+		$sa=$_POST['sa'];
+		if($sa!='')
+		{
+		
+		$q=$q." and b.sa<='$sa' ";
+	}
+	}
+	if(isset($_POST['year']))
+	{
+				$year=$_POST['year'];
+		if($year!='')
+		{
+
+			$q=$q." and b.ce='$year' ";
+	}
+	}
+	}
+	
+	
+	
+	if($be1==1)
+	{
+	if(isset($_POST['ugper']))
+	{
+			$ugper=$_POST['ugper'];
+		if($ugper!='')
+		{
+	
+		$q=$q." and be.ugper>='$ugper' ";
+		}
+	}
+	if(isset($_POST['cper']))
+	{
+		$cper=$_POST['cper'];
+		if($cper!='')
+		{
+		
+			$q=$q." and be.cp>='$cper' ";
+	}
+	}
+	if(isset($_POST['sa']))
+	{
+		$sa=$_POST['sa'];
+		if($sa!='')
+		{
+		
+		$q=$q." and be.sa<='$sa' ";
+	}
+	}
+	if(isset($_POST['year']))
+	{
+				$year=$_POST['year'];
+		if($year!='')
+		{
+
+			$q=$q." and be.ce='$year' ";
+	}
+	}
+	}
